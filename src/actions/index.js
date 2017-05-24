@@ -6,6 +6,7 @@
  */
 import Reveal from "reveal.js";
 import {CHANGE_SLIDE, MASTER_STARTED_PRESENTATION} from "../action-types";
+import _ from "lodash";
 
 function changeSlide(currentSlide, currentSlideIdx) {
     return {
@@ -30,5 +31,8 @@ export function startPresentation() {
             dispatch(changeSlide(event.currentSlide, event.indexh));
         });
         dispatch(masterStarted());
+        const slides = Reveal.getSlides();
+        debugger;
+        dispatch(changeSlide(!_.isEmpty(slides) ? slides[0] : null, 0));
     }
 }
